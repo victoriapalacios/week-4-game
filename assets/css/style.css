@@ -1,0 +1,74 @@
+body {
+  max-width: 600px;
+  margin: 0 auto;
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+h1, h2, h3, h4, h5, h6, p, a, button {
+  font-family: 'Roboto Slab', serif;
+  font-weight: 100;
+  color: #4B4B4B;
+}
+
+h1 {
+  font-size: 48px;
+  margin-bottom: 40px;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  font-weight: 400;
+}
+
+p {
+  margin-bottom: 10px;
+  line-height: 20px
+}
+
+.stats {
+  width: 100%;
+  margin-top: 20px;
+  text-align: center;
+}
+
+span {
+  display: inline-block;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.last {
+  margin-bottom: 30px;
+}
+
+#status {
+  text-align: center;
+  height: 30px;
+  vertical-align: middle;
+  display: block;
+  text-align: center;
+  font-weight: 400;
+}
+
+#target, #counter, #wins, #losses {
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.snowflakes {
+  text-align: center;
+}
+
+
+.snowflake {
+  margin: 20px;
+  max-width: 65px;
+  transition: all 0.3s ease 0s;
+  vertical-align: middle
+}
+
+.snowflake:hover {
+  transform: translateY(-15px);
+}

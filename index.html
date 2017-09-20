@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="UTF-8">
+  <title>Snowflake Shuffle</title>
+  <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700" rel="stylesheet">
+  <script type="text/javascript" src="assets/javascript/game.js"></script>
+  <script src="https://code.jquery.com/jquery.js"></script>
+</head>
+<body>
+  <h1>Snowflake Shuffle</h1>
+  <h2>How To Play</h2>
+  <p>You will be given a random number at the start of the game.</p>
+  <p>There are four snowflakes below. By clicking on a crystal you will add a specific amount of points to your total score.</p>
+  <p>You win the game by matching your total score to the random number. You loose the game if your total score goes above the random number.</p>
+  <p>The value of each crystal is hidden from you until you click on it.</p>
+  <p class="last">Each time when the game starts, the game will change the value of each crystal.</p>
+  <p id="status"></p>
+  <div class="stats">
+  <span><p>Target</p><p id="target"></p></span>
+    <span><p>Counter</p><p id="counter">0</p></span>
+    <span><p>Wins</p><p id="wins"></p></span>
+    <span><p>Losses</p><p id="losses"></p></span>
+  </div>
+  <div class="snowflakes">
+    <img id="0" class="snowflake" src="assets/images/flake1.png" value="flake1">
+    <img id="1" class="snowflake" src="assets/images/flake2.png" value="flake2">
+    <img id="2" class="snowflake" src="assets/images/flake3.png" value="flake3">
+    <img id="3" class="snowflake" src="assets/images/flake4.png" value="flake4">
+  </div>
+
+</body>
+
+<script>
+
+counter = 0
+var wins = 0;
+var losses = 0;
+$('#wins').text(wins);
+$('#losses').text(losses);
+
+$( document ).ready(function newGame() {
+
+  //Below is how the computer chooses the target number at random between 12 and 120
+  var minNumber = 19;
+  var maxNumber = 120;
+  var randomTarget = Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber;
+  console.log(randomTarget);
+  $('#target').text(randomTarget);
+
+
+  // Below is a while loop that creates an array of four numbers between
+  //1 and 12 to assign to the snowflakes
+
+  var snowflakeArray = []
+  while(snowflakeArray.length < 4){
+    var randomSnowflakeNumber = Math.ceil(Math.random()*12)
+    if(snowflakeArray.indexOf(randomSnowflakeNumber) > -1) continue;
+    snowflakeArray[snowflakeArray.length] = randomSnowflakeNumber;
+  }
+  console.log(snowflakeArray);
+
+
+  // Below code assigns random number between 1 and 12 to each of the 4 crystals
+  $( ".snowflake" ).click(function() {
+    var clickedImage = $(this).attr('id');
+    console.log(snowflakeArray[clickedImage]);
+
+    // Below code adds together clicked image numbers - this is the users score
+    var clickedValue = (snowflakeArray[clickedImage]);
+    counter += clickedValue;
+    console.log(counter);
+    $('#counter').text(counter);
+
+    // Below code is an if else statement that alerts when a player wins or goes over and looses
+    if (randomTarget === counter) {
+      $('#status').text('You WON :)');
+      counter = 0;
+      ++wins;
+      $('#wins').text(wins);
+      // Below ".off" removes the value of the snowflake click event so we can reattach a new value
+      $( ".snowflake" ).off();
+      newGame();
+
+
+    }
+    else if (counter >= randomTarget) {
+      $('#status').text('YOU LOST :(');
+      counter = 0;
+      ++losses;
+      $('#losses').text(losses);
+      $( ".snowflake" ).off();
+      newGame();
+    }
+
+  });
+
+});
+
+</script>
+</html>
